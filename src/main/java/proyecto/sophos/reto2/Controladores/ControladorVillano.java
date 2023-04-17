@@ -27,4 +27,39 @@ public class ControladorVillano {
         return miRepositorioVillano.save(infoVillano);
     }
 
+    @GetMapping("{id}")
+    public Villanos show(@PathVariable int id){
+        Villanos villanoActual = this.miRepositorioVillano
+                .findById(id)
+                .orElse(null);
+        return villanoActual;
+    }
+    @PutMapping("{id}")
+    public Villanos update(@PathVariable int id, @RequestBody Villanos infoVillano){
+        Villanos villanoActual = this.miRepositorioVillano
+                .findById(id)
+                .orElse(null);
+        if (villanoActual != null){
+            villanoActual.setNombre(infoVillano.getNombre());
+            villanoActual.setEdad(infoVillano.getEdad());
+            villanoActual.setHabilidades(infoVillano.getHabilidades());
+            villanoActual.setOrigen(infoVillano.getOrigen());
+            villanoActual.setDebilidades(infoVillano.getDebilidades());
+            villanoActual.setPoder(infoVillano.getPoder());
+            return this.miRepositorioVillano.save(villanoActual);
+        } else {
+            return null;
+        }
+    }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id){
+        Villanos villanoActual = this.miRepositorioVillano
+                .findById(id)
+                .orElse(null);
+        if (villanoActual != null){
+            this.miRepositorioVillano.delete(villanoActual);
+        }
+    }
+
 }

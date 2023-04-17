@@ -31,7 +31,7 @@ public class Villanos {
         this.poder = poder;
     }
 
-    public int getId_villano() {
+    public int getId_villanos() {
         return id_villanos;
     }
 
