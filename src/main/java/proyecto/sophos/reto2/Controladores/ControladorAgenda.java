@@ -6,22 +6,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import proyecto.sophos.reto2.Modelos.Ciudadano;
-import proyecto.sophos.reto2.Repositorios.RepositorioCiudadano;
+import proyecto.sophos.reto2.Modelos.Agenda;
+import proyecto.sophos.reto2.Repositorios.RepositorioAgenda;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/ciudadano")
+@RequestMapping("/agenda")
 
-public class ControladorCiudadano {
+public class ControladorAgenda {
+
     @Autowired
-    private RepositorioCiudadano miRepositorioCiudadano;
+    private RepositorioAgenda miRepositorioAgenda;
 
     @GetMapping("")
-    public List<Ciudadano> index(){
-        return miRepositorioCiudadano.findAll();
+    public List<Agenda> index(){
+        return this.miRepositorioAgenda.findAll();
     }
 
 }

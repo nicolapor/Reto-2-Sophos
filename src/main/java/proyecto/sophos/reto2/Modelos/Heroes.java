@@ -2,6 +2,8 @@ package proyecto.sophos.reto2.Modelos;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Data
@@ -15,6 +17,13 @@ public class Heroes {
     private String origen;
     private String debilidades;
     private String poder;
+    @OneToOne
+    @JoinColumn(name = "fk_id_patrocinador")
+    private Patrocinadores patrocinador;
+
+    @OneToOne
+    @JoinColumn(name = "fk_id_agenda")
+    private Agenda agenda;
 
     public Heroes() {
     }
@@ -78,5 +87,21 @@ public class Heroes {
 
     public void setPoder(String poder) {
         this.poder = poder;
+    }
+
+    public Patrocinadores getPatrocinador() {
+        return patrocinador;
+    }
+
+    public void setPatrocinador(Patrocinadores patrocinador) {
+        this.patrocinador = patrocinador;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 }
