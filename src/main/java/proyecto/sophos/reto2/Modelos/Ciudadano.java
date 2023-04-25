@@ -61,4 +61,7 @@ public class Ciudadano {
         return heroe;
     }
 
+    public void setHeroe(Heroes heroe) {
+        this.heroe = heroe;
+    }
 }

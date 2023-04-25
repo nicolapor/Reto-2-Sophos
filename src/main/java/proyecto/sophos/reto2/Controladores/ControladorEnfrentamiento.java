@@ -1,12 +1,11 @@
 package proyecto.sophos.reto2.Controladores;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import proyecto.sophos.reto2.Modelos.Enfrentamientos;
+import proyecto.sophos.reto2.Modelos.Heroes;
+import proyecto.sophos.reto2.Modelos.Villanos;
 import proyecto.sophos.reto2.Repositorios.RepositorioEnfrentamiento;
 import proyecto.sophos.reto2.Repositorios.RepositorioHeroe;
 import proyecto.sophos.reto2.Repositorios.RepositorioVillano;
@@ -32,4 +31,62 @@ public class ControladorEnfrentamiento {
     public List<Enfrentamientos> index(){
         return miRepositorioEnfrentamiento.findAll();
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Enfrentamientos create(@RequestBody Enfrentamientos infoEnfrentamiento){
+        return this.miRepositorioEnfrentamiento.save(infoEnfrentamiento);
+    }
+
+    @GetMapping("{id}")
+    public Enfrentamientos show(@PathVariable int id){
+        Enfrentamientos enfrentamientoActual = this.miRepositorioEnfrentamiento
+                .findById(id)
+                .orElse(null);
+        return enfrentamientoActual;
+    }
+
+    @PutMapping("{id}")
+    public Enfrentamientos update(@PathVariable int id, @RequestBody Enfrentamientos infoEnfrentamiento){
+        Enfrentamientos enfrentamientoActual = this.miRepositorioEnfrentamiento
+                .findById(id)
+                .orElse(null);
+        if (enfrentamientoActual != null){
+            enfrentamientoActual.setResultado(infoEnfrentamiento.getResultado());
+            return this.miRepositorioEnfrentamiento.save(enfrentamientoActual);
+        } else {
+            return null;
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id){
+        Enfrentamientos enfrentamientoActual = this.miRepositorioEnfrentamiento
+                .findById(id)
+                .orElse(null);
+        if (enfrentamientoActual != null){
+            this.miRepositorioEnfrentamiento.delete(enfrentamientoActual);
+        }
+    }
+
+    /*
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("heroe/{id_heroe}/villano/{id_villano}")
+    public Enfrentamientos asignarResultado(@PathVariable int id_heroe, @PathVariable int id_villano){
+        Enfrentamientos nuevoEnfrentamiento = new Enfrentamientos();
+        Heroes elHeroe = miRepositorioHeroe.findById(id_heroe).orElse(null);
+        Villanos elVillano = miRepositorioVillano.findById(id_villano).orElse(null);
+        if(elHeroe != null && elVillano != null){
+            nuevoEnfrentamiento.setHeroe(elHeroe);
+            nuevoEnfrentamiento.setVillano(elVillano);
+            return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
+        } else {
+            return null;
+        }
+    }
+
+     */
+
+
 }

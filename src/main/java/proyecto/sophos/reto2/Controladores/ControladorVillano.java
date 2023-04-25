@@ -18,13 +18,13 @@ public class ControladorVillano {
 
     @GetMapping("")
     public List<Villanos> index(){
-        return miRepositorioVillano.findAll();
+        return this.miRepositorioVillano.findAll();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Villanos create(@RequestBody Villanos infoVillano){
-        return miRepositorioVillano.save(infoVillano);
+        return this.miRepositorioVillano.save(infoVillano);
     }
 
     @GetMapping("{id}")
