@@ -70,17 +70,15 @@ public class ControladorEnfrentamiento {
         }
     }
 
-
     //---------------------ESTA ES LA QUE SI FUNCIONA.
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("{id_enfrentamiento}/heroe/{id_heroe}/villano/{id_villano}")
-    public Enfrentamientos asignarResultado(@PathVariable int id_enfrentamiento, @PathVariable int id_heroe, @PathVariable int id_villano){
+    @PostMapping("heroe/{id_heroe}/villano/{id_villano}")
+    public Enfrentamientos asignarResultado(@RequestBody Enfrentamientos infoEnfrentamiento, @PathVariable int id_heroe, @PathVariable int id_villano){
         Enfrentamientos nuevoEnfrentamiento = new Enfrentamientos();
-        Enfrentamientos elEnfrentamiento = this.miRepositorioEnfrentamiento.findById(id_enfrentamiento).orElse(null);
         Heroes elHeroe = this.miRepositorioHeroe.findById(id_heroe).orElse(null);
         Villanos elVillano = this.miRepositorioVillano.findById(id_villano).orElse(null);
-        if(elHeroe != null && elVillano != null && elEnfrentamiento != null){
-            nuevoEnfrentamiento.setResultado(elEnfrentamiento.getResultado());
+        if(elHeroe != null && elVillano != null ){
+            nuevoEnfrentamiento.setResultado(infoEnfrentamiento.getResultado());
             nuevoEnfrentamiento.setHeroe(elHeroe);
             nuevoEnfrentamiento.setVillano(elVillano);
             return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
@@ -90,13 +88,16 @@ public class ControladorEnfrentamiento {
     }
 
     /*
+
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("heroe/{id_heroe}/villano/{id_villano}")
-    public Enfrentamientos asignarResultado(@PathVariable int id_heroe, @PathVariable int id_villano){
+    @PostMapping("{id_enfrentamiento}/heroe/{id_heroe}/villano/{id_villano}")
+    public Enfrentamientos asignarResultado(@PathVariable int id_enfrentamiento, @PathVariable int id_heroe, @PathVariable int id_villano){
         Enfrentamientos nuevoEnfrentamiento = new Enfrentamientos();
-        Heroes elHeroe = miRepositorioHeroe.findById(id_heroe).orElse(null);
-        Villanos elVillano = miRepositorioVillano.findById(id_villano).orElse(null);
-        if(elHeroe != null && elVillano != null){
+        Enfrentamientos elEnfrentamiento = this.miRepositorioEnfrentamiento.findById(id_enfrentamiento).orElse(null);
+        Heroes elHeroe = this.miRepositorioHeroe.findById(id_heroe).orElse(null);
+        Villanos elVillano = this.miRepositorioVillano.findById(id_villano).orElse(null);
+        if(elHeroe != null && elVillano != null && elEnfrentamiento != null){
+            nuevoEnfrentamiento.setResultado(elEnfrentamiento.getResultado());
             nuevoEnfrentamiento.setHeroe(elHeroe);
             nuevoEnfrentamiento.setVillano(elVillano);
             return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
