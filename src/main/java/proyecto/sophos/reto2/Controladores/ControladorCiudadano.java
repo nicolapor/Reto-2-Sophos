@@ -67,20 +67,23 @@ public class ControladorCiudadano {
         }
     }
 
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("id/{id_ciudadano}/heroe/{id_heroe}")
-    public Ciudadano asignarHeroeCiudadano(@PathVariable int id_heroe){
+    public Ciudadano asignarHeroeCiudadano(@PathVariable int id_ciudadano, @PathVariable int id_heroe){
         Ciudadano nuevoCiudadano = new Ciudadano();
-        Heroes elHeroe = miRepositorioHeroe.findById(id_heroe).orElse(null);
-        if(elHeroe != null){
+        Ciudadano elCiudadano = this.miRepositorioCiudadano.findById(id_ciudadano).orElse(null);
+        Heroes elHeroe = this.miRepositorioHeroe.findById(id_heroe).orElse(null);
+        if(elCiudadano != null && elHeroe != null){
+            nuevoCiudadano.setId_ciudadano(elCiudadano.getId_ciudadano());
+            nuevoCiudadano.setNombre(elCiudadano.getNombre());
+            nuevoCiudadano.setEdad(elCiudadano.getEdad());
+            nuevoCiudadano.setRelacion_personal(elCiudadano.getRelacion_personal());
             nuevoCiudadano.setHeroe((elHeroe));
             return this.miRepositorioCiudadano.save(nuevoCiudadano);
         } else{
             return null;
         }
     }
-
 
 }
 

@@ -33,9 +33,19 @@ public class ControladorEnfrentamiento {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Enfrentamientos create(@RequestBody Enfrentamientos infoEnfrentamiento){
-        return this.miRepositorioEnfrentamiento.save(infoEnfrentamiento);
+    @PostMapping("heroe/{id_heroe}/villano/{id_villano}")
+    public Enfrentamientos asignarResultado(@RequestBody Enfrentamientos infoEnfrentamiento, @PathVariable int id_heroe, @PathVariable int id_villano){
+        Enfrentamientos nuevoEnfrentamiento = new Enfrentamientos();
+        Heroes elHeroe = this.miRepositorioHeroe.findById(id_heroe).orElse(null);
+        Villanos elVillano = this.miRepositorioVillano.findById(id_villano).orElse(null);
+        if(elHeroe != null && elVillano != null ){
+            nuevoEnfrentamiento.setResultado(infoEnfrentamiento.getResultado());
+            nuevoEnfrentamiento.setHeroe(elHeroe);
+            nuevoEnfrentamiento.setVillano(elVillano);
+            return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
+        } else {
+            return null;
+        }
     }
 
     @GetMapping("{id}")
@@ -69,43 +79,5 @@ public class ControladorEnfrentamiento {
             this.miRepositorioEnfrentamiento.delete(enfrentamientoActual);
         }
     }
-
-    //---------------------ESTA ES LA QUE SI FUNCIONA.
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("heroe/{id_heroe}/villano/{id_villano}")
-    public Enfrentamientos asignarResultado(@RequestBody Enfrentamientos infoEnfrentamiento, @PathVariable int id_heroe, @PathVariable int id_villano){
-        Enfrentamientos nuevoEnfrentamiento = new Enfrentamientos();
-        Heroes elHeroe = this.miRepositorioHeroe.findById(id_heroe).orElse(null);
-        Villanos elVillano = this.miRepositorioVillano.findById(id_villano).orElse(null);
-        if(elHeroe != null && elVillano != null ){
-            nuevoEnfrentamiento.setResultado(infoEnfrentamiento.getResultado());
-            nuevoEnfrentamiento.setHeroe(elHeroe);
-            nuevoEnfrentamiento.setVillano(elVillano);
-            return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
-        } else {
-            return null;
-        }
-    }
-
-    /*
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("{id_enfrentamiento}/heroe/{id_heroe}/villano/{id_villano}")
-    public Enfrentamientos asignarResultado(@PathVariable int id_enfrentamiento, @PathVariable int id_heroe, @PathVariable int id_villano){
-        Enfrentamientos nuevoEnfrentamiento = new Enfrentamientos();
-        Enfrentamientos elEnfrentamiento = this.miRepositorioEnfrentamiento.findById(id_enfrentamiento).orElse(null);
-        Heroes elHeroe = this.miRepositorioHeroe.findById(id_heroe).orElse(null);
-        Villanos elVillano = this.miRepositorioVillano.findById(id_villano).orElse(null);
-        if(elHeroe != null && elVillano != null && elEnfrentamiento != null){
-            nuevoEnfrentamiento.setResultado(elEnfrentamiento.getResultado());
-            nuevoEnfrentamiento.setHeroe(elHeroe);
-            nuevoEnfrentamiento.setVillano(elVillano);
-            return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
-        } else {
-            return null;
-        }
-    }
-    */
-
 
 }
