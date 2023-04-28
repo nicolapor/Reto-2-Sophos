@@ -40,8 +40,8 @@ public class ControladorEnfrentamiento {
         Villanos elVillano = this.miRepositorioVillano.findById(id_villano).orElse(null);
         if(elHeroe != null && elVillano != null ){
             nuevoEnfrentamiento.setResultado(infoEnfrentamiento.getResultado());
-            nuevoEnfrentamiento.setHeroe(elHeroe);
-            nuevoEnfrentamiento.setVillano(elVillano);
+            nuevoEnfrentamiento.setHeroes(elHeroe);
+            nuevoEnfrentamiento.setVillanos(elVillano);
             return this.miRepositorioEnfrentamiento.save(nuevoEnfrentamiento);
         } else {
             return null;
@@ -79,10 +79,12 @@ public class ControladorEnfrentamiento {
             this.miRepositorioEnfrentamiento.delete(enfrentamientoActual);
         }
     }
-
+    /*
     @GetMapping("/victorias")
     public List<Heroes> getVictoriasHeroes(){
         return this.miRepositorioEnfrentamiento.filtrarVictoriasHeroes();
     }
+
+     */
 
 }

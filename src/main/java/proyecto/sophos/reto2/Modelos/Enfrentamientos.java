@@ -15,11 +15,11 @@ public class Enfrentamientos {
 
     @ManyToOne
     @JoinColumn(name = "fk_id_heroes")
-    private Heroes heroe;
+    private Heroes heroes;
 
     @ManyToOne
     @JoinColumn(name = "fk_id_villanos")
-    private Villanos villano;
+    private Villanos villanos;
 
     public Enfrentamientos() {
     }
@@ -40,11 +40,19 @@ public class Enfrentamientos {
         this.resultado = resultado;
     }
 
-    public Heroes getHeroe() {
-        return heroe;
+    public Heroes getHeroes() {
+        return heroes;
     }
 
-    public Villanos getVillano() {
-        return villano;
+    public Villanos getVillanos() {
+        return villanos;
+    }
+
+    public void setHeroes(Heroes heroes) {
+        this.heroes = heroes;
+    }
+
+    public void setVillanos(Villanos villanos) {
+        this.villanos = villanos;
     }
 }

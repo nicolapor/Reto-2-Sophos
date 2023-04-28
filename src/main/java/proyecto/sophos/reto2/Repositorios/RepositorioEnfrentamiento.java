@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface RepositorioEnfrentamiento extends JpaRepository<Enfrentamientos, Integer> {
 
+    /*
     @Query("SELECT her.nombre, COUNT(enf.resultado) AS num_victorias\n" +
             "FROM Enfrentamientos enf\n" +
             "INNER JOIN heroes her ON her.id_heroes = enf.fk_id_heroes\n" +
@@ -19,5 +20,7 @@ public interface RepositorioEnfrentamiento extends JpaRepository<Enfrentamientos
             "ORDER BY COUNT(enf.resultado) DESC\n" +
             "LIMIT 3")
     List<Heroes> filtrarVictoriasHeroes();
+
+     */
 
 }
