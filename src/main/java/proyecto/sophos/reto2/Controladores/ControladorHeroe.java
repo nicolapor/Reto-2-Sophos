@@ -100,6 +100,17 @@ public class ControladorHeroe {
         }
     }
 
+    @PostMapping("/nombre")
+    public List<Heroes> getNombreHeroes(@RequestBody Heroes infoHeroe){
+        return this.miRepositorioHeroe.filtrarNombreHeroes(infoHeroe.getNombre());
+    }
+
+    @PostMapping("/habilidad")
+    public List<Heroes> getHabilidadHeroes(@RequestBody Heroes infoHeroe){
+        return this.miRepositorioHeroe.filtrarHabilidadHeroes(infoHeroe.getHabilidades());
+    }
+
+
 }
 
 

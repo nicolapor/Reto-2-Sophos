@@ -80,4 +80,9 @@ public class ControladorEnfrentamiento {
         }
     }
 
+    @GetMapping("/victorias")
+    public List<Heroes> getVictoriasHeroes(){
+        return this.miRepositorioEnfrentamiento.filtrarVictoriasHeroes();
+    }
+
 }

@@ -62,4 +62,20 @@ public class ControladorVillano {
         }
     }
 
+    @PostMapping("/nombre")
+    public List<Villanos> getNombresVillanos(@RequestBody Villanos infoVillano){
+        return this.miRepositorioVillano.filtraNombreVillanos(infoVillano.getNombre());
+    }
+
+    @PostMapping("/origen")
+    public List<Villanos> getOrigenVillanos(@RequestBody Villanos infoVillano){
+        return this.miRepositorioVillano.filtrarOrigenVillanos(infoVillano.getOrigen());
+    }
+
+    @PostMapping("/debilidad")
+    public List<Villanos> getDebilidadesVillanos(@RequestBody Villanos infoVillano){
+        return this.miRepositorioVillano.filtraDebilidadesVillanos(infoVillano.getDebilidades());
+    }
+
+
 }
